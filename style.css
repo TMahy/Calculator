@@ -1,0 +1,50 @@
+#calc{
+    display: flex;
+    min-height: 95vh;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    height: 100vh;
+    overflow: hidden;
+
+    background-color: azure;
+}
+
+#container{
+    display: grid;
+    grid-template-columns: repeat(4, 100px);
+    grid-template-rows: minmax(100px, auto) repeat(5, 80px);
+    gap: 2px;
+
+    padding: 5px;
+    border: 5px black solid;
+    background-color: grey;
+}
+
+.zero{
+    grid-column: span 2;
+}
+
+#display{
+    grid-column: 1/-1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: flex-end;
+
+    padding: 5px;
+    margin: 5px;
+    background-color: lightgrey;
+}
+
+.operator{
+    background-color: orange;
+}
+
+.equals{
+    background-color: coral;
+}
+
+.allClear, .clear, .sign{
+    background-color: lightblue;
+}

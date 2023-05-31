@@ -1,9 +1,7 @@
 let displayVal = '0';
 let num1 = null; 
 let num2 = null; 
-let operator1 = null;
-let operator2 = null;
-let result = null;
+let operator = null;
 
 const buttons = document.querySelectorAll('button');
 const display = document.getElementById('display');
@@ -46,15 +44,13 @@ function clearDisplay(allClear){
     if(allClear){
         displayVal = '0';
         num1 = null; 
-        num2 = null; 
-        operator1 = null;
-        operator2 = null;
-        result = null;
+        num2 = null;
+        operator = null;
         return; 
     } else{
         return;
     }
-}
+}   
 
 function inputDigit(digit){
     if(displayVal == 0){
@@ -64,11 +60,19 @@ function inputDigit(digit){
     }
 }
 
-function inputOperator(operator){
+function inputOperator(operatorVal){
+    if(operator === null){
+        operator = operatorVal;
+        num1 = displayVal;
+    }else if(operator !== null){
+        //evaluate num1 and current number on display with the current operator and then assign operator to the new operator
+        num1 = operate(num1, displayVal, operator);
+    }
     console.log(displayVal, operator)
 }
 
 function inputEquals(){
+    displayVal = operate(Number(num1), Number(displayVal), operator)
     console.log(displayVal, 'equals')
 }
 

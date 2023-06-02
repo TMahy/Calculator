@@ -53,27 +53,42 @@ function clearDisplay(allClear){
 }   
 
 function inputDigit(digit){
-    if(displayVal == 0){
-        displayVal = digit;
-    }else{
-        displayVal += digit;
+    if(operator === null | operator == 'equals'){
+        if(displayVal == 0){
+            displayVal = digit;
+        }else{
+            displayVal +=digit
+        }
     }
+    else {
+        if(displayVal == num1){
+            displayVal = digit
+        }else{
+            displayVal += digit
+        }   
+    }
+    console.log(`displayVal: ${displayVal}, num1: ${num1}, operator: ${operator}, num2: ${num2}`)
 }
 
 function inputOperator(operatorVal){
     if(operator === null){
-        operator = operatorVal;
         num1 = displayVal;
+        operator = operatorVal;
     }else if(operator !== null){
-        //evaluate num1 and current number on display with the current operator and then assign operator to the new operator
         num1 = operate(num1, displayVal, operator);
+        operator = operatorVal;
+        displayVal = num1;
     }
-    console.log(displayVal, operator)
+    console.log(`displayVal: ${displayVal}, num1: ${num1}, operator: ${operator}, num2: ${num2}`)
 }
 
 function inputEquals(){
+    // num2 = displayVal
+    if(operator != 'equals'){
     displayVal = operate(Number(num1), Number(displayVal), operator)
-    console.log(displayVal, 'equals')
+    operator = 'equals';
+    }
+    console.log(`displayVal: ${displayVal}, num1: ${num1}, operator: ${operator}, num2: ${num2}`)
 }
 
 function inputDecimal(){
@@ -106,12 +121,12 @@ function divide(a, b){
 function operate(a, b, operator){
     switch(operator){
         case '+':
-            return add(a,b);
+            return add(Number(a),Number(b));
         case '-':
-            return subtract(a,b);
+            return subtract(Number(a),Number(b));
         case '*':
-            return multiply(a,b);
+            return multiply(Number(a),Number(b));
         case '/':
-            return divide(a,b);
+            return divide(Number(a),Number(b));
     }
 }

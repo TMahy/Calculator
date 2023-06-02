@@ -7,7 +7,7 @@ const buttons = document.querySelectorAll('button');
 const display = document.getElementById('display');
 
 function updateDisplay(){
-    display.innerText = displayVal;
+        display.innerText = displayVal;
 }
 
 updateDisplay();
@@ -34,7 +34,7 @@ buttons.forEach(button =>{
         }
         if(button.classList.contains('sign')){
             inputSign(displayVal);   
-        }
+        }  
 
         updateDisplay()
     })
@@ -44,10 +44,10 @@ function clearDisplay(allClear){
     if(allClear){
         displayVal = '0';
         num1 = null; 
-        num2 = null;
         operator = null;
         return; 
     } else{
+        displayVal = 0;
         return;
     }
 }   
@@ -61,7 +61,7 @@ function inputDigit(digit){
         }
     }
     else {
-        if(displayVal == num1){
+        if(displayVal == 0 | displayVal == num1){
             displayVal = digit
         }else{
             displayVal += digit
@@ -76,9 +76,14 @@ function inputOperator(operatorVal){
         operator = operatorVal;
     }else if(operator !== null){
         if(operator != 'equals'){
-            num1 = operate(num1, displayVal, operator);
-            operator = operatorVal;
-            displayVal = num1;
+            if(displayVal == num1){
+                operator = operatorVal;
+                displayVal = num1;
+            }else{
+                num1 = operate(num1, displayVal, operator);
+                operator = operatorVal;
+                displayVal = num1;
+            }
         } else if(operator == 'equals'){
             operator = operatorVal;
             num1 = displayVal;

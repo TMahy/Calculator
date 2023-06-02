@@ -53,8 +53,8 @@ function clearDisplay(allClear){
 }   
 
 function inputDigit(digit){
-    if(operator === null | operator == 'equals'){
-        if(displayVal == 0){
+    if(operator === null | operator === 'equals'){
+        if(displayVal == 0 | displayVal == num1){
             displayVal = digit;
         }else{
             displayVal +=digit
@@ -75,18 +75,28 @@ function inputOperator(operatorVal){
         num1 = displayVal;
         operator = operatorVal;
     }else if(operator !== null){
-        num1 = operate(num1, displayVal, operator);
-        operator = operatorVal;
-        displayVal = num1;
+        if(operator != 'equals'){
+            num1 = operate(num1, displayVal, operator);
+            operator = operatorVal;
+            displayVal = num1;
+        } else if(operator == 'equals'){
+            operator = operatorVal;
+            num1 = displayVal;
+        }
     }
     console.log(`displayVal: ${displayVal}, num1: ${num1}, operator: ${operator}, num2: ${num2}`)
 }
 
 function inputEquals(){
-    // num2 = displayVal
     if(operator != 'equals'){
-    displayVal = operate(Number(num1), Number(displayVal), operator)
-    operator = 'equals';
+        if(operator === null | num1 === null){
+            operator = 'equals';
+            num1 = displayVal;
+        }else{
+            displayVal = operate(num1, displayVal, operator)
+            operator = 'equals';
+            num1 = displayVal;
+        }
     }
     console.log(`displayVal: ${displayVal}, num1: ${num1}, operator: ${operator}, num2: ${num2}`)
 }
@@ -96,7 +106,7 @@ function inputDecimal(){
 }
 
 function inputSign(value){
-    console.log('Not implemented yet')
+    displayVal = -1*Number(displayVal);
 }
 
 function add(a, b){
